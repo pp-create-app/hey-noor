@@ -11,12 +11,7 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const day = getDayName();
-
-  // Skip weekends
-  if (day === "Saturday" || day === "Sunday") {
-    return res.json({ status: "skipped", reason: "Weekend — no meals for Noor" });
-  }
+  const day = req.query.day || getDayName();
 
   // Determine which meal slot based on current IST time
   const now = new Date();
